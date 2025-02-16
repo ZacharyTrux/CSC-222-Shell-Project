@@ -4,14 +4,21 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <sys/wait.h>
+#include <signal.h>
+#include <ctype.h>
 
-#define DEBUG 1
-#define MAX_ARGS 10
 #define MAX_COMMAND_LENGTH 100
 
 char* CommandPrompt(); // recieve input
 struct ShellCommand ParseCommandLine(char* input); // figure out what the command is 
 void ExecuteCommand(struct ShellCommand command); // execute the command 
+char* to_lowercase(char *str);
+struct ShellCommand{
+    char *args[MAX_COMMAND_LENGTH];
+    char *input_file;
+    char *output_file;
+};
 
 int main(){
     char* input;
@@ -20,53 +27,98 @@ int main(){
     for(;;){
         input = CommandPrompt();
         command = ParseCommandLine(input);
-        if(DEBUG){printf("input: %s, command: %s\n", input, command);}
         ExecuteCommand(command);
     }
 
     exit(0);
 }
 
-struct ShellCommand {
-    char *command[MAX_COMMAND_LENGTH];
-    char *args[MAX_ARGS][MAX_COMMAND_LENGTH];
-    int num_args;
-}
 struct ShellCommand ParseCommandLine(char *input){
-    struct ShellCommand commandLine;
-    commandLine.num_args = 0;
-    commandLine.command = input[0];
+    struct ShellCommand command;
+    command.input_file = NULL;
+    command.output_file = NULL;
 
-    int size = sizeof(input) / sizeof(char*);
+    int index = 0;
+    char *token = strtok(input, " "); // seperate input by spaces using tokenization
 
-    for(int i = 1; i < size; i++){
-        commandLine.args[i][] = input[i];
-        for (int j = i; j <= i; j++){
-            commandLine.args[i][j] = sizeof(input[i]) / sizeof(char*);  
+    while(token){  
+        if(strcmp(token, "<") == 0){ // strcmp checks for if a given string is found in the token
+            token = strtok(NULL, " "); 
+            command.input_file = token;
         }
-        commandLine.num_args++;
+        else if(strcmp(token, ">") == 0){
+            token = strtok(NULL, " ");
+            command.output_file = token;
+        }
+        else{
+            command.args[index++] = token;
+        }
+        token = strtok(NULL, " "); // move on to the next token
     }
 
-    return commandLine;
+    command.args[index] = NULL;
+    return command;
 }
 
-void ExecuteCommand(struct ShellCommand commandLine){
+void ExecuteCommand(struct ShellCommand command){
+    if(strcmp(to_lowercase(command.args[0]), "exit") == 0){
+        exit(0);
+    }
+    else if(strcmp(command.args[0], "cd") == 0){
+        int num = chdir(command.args[1]);
+        if(num < 0){
+            perror("Error 13");
+        }
+        return;
+    }
+    
     pid_t p = fork();
     if(p < 0){
         perror("Fork Failed");
         exit(1);
     }
-    execvp(commandLine.command, commandLine.args);
+    else if(p == 0){
+        if(command.input_file){
+            FILE* infile = fopen(command.input_file, "r");
+            dup2(fileno(infile), 0);
+            fclose(infile);
+        }
+        if(command.output_file){
+            FILE* outfile = fopen(command.output_file, "w");
+            dup2(fileno(outfile), 1);
+            fclose(outfile);
+        }
+        
+        int num = execvp(command.args[0], command.args);
+        if(num < 0){
+            perror("Error 2");
+            exit(1);
+        }
+    
+    }
+    wait(NULL);
 }
 
 char* CommandPrompt(){
     char buffer[PATH_MAX + 1];
     char *cwd = getcwd(buffer, PATH_MAX + 1); // gets the working directory
     printf("%s$ ", cwd); // print out the current directory similar to that of the commmand line
+    fflush(stdout);
 
-    char *input; 
-    input = (char*)malloc(50 * sizeof(char)); // allocate memory to store the input 
-    scanf("%s", input); 
+
+    char *input = (char*)malloc(50 * sizeof(char)); // allocate memory to store the input 
+    if(!fgets(input, 50 * sizeof(char), stdin)){ // no input, free memory
+        free(input);
+        exit(0);
+    }
     
+    input[strcspn(input, "\n")] = 0;
     return input;
+}
+
+char* to_lowercase(char *str){
+    for (int i = 0; str[i]; i++) {
+        str[i] = tolower(str[i]);
+      }
+    return str;
 }
