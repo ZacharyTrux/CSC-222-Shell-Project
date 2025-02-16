@@ -1,0 +1,32 @@
+Names: Zachary Truxillo, Diego Medina, Hunter Harris, Justus Blanchard
+
+Struct ShellCommand:
+- Created a struct with three part, all pointing at the memory locations of them
+  - An char array for the input command given
+  - An input file if the command calls for it
+  - An output file if the command calls for it
+
+Parse Command Line:
+- Created an empty input and output file before reading input of user
+- Then check input to see if the data will be input into a certain file
+- If not certain characters, it will then put the current argument in a created
+  array and move onto the next argument until the end of the list
+- The end of the array is then made as null for certain functions to work properly
+  
+Commmand Prompt:
+- Using an imported library, we create an array with the max amount of directories possible
+- We then get the working directory and print it out for the user to know their location and then
+ clears out the previous input
+- Then store the memory location of the input for use later and if there is no input
+  it frees up the memory for a new input
+- Finally remove the null character at the end and returns the input for the next function to use
+
+Execute Command:
+- This function executes a shell command stored in the ShellCommand structure
+- It first checks if the command is "exit" and terminates the program if true
+- If the program is "cd", it attempts to change the directory, otherwise it forks a child
+  process to execute the command
+- The child process redirects the input and output if specified, then runs the commands using
+  execvp()
+- If execvp() fails, an error message is printed, and the child process exits
+- The parent process waits for the child to finish before continuing execution
