@@ -10,7 +10,7 @@
 
 #define MAX_COMMAND_LENGTH 100
 
-char* CommandPrompt(); // recieve input
+char* CommandPrompt(); // receive input
 struct ShellCommand ParseCommandLine(char* input); // figure out what the command is 
 void ExecuteCommand(struct ShellCommand command); // execute the command 
 char* to_lowercase(char *str); 
@@ -40,7 +40,7 @@ struct ShellCommand ParseCommandLine(char *input){
 
     int index = 0;
     // tokenizing is a way of creating sub-strings in which each token or substring is created based on spaces which indicate the token has ended 
-    char *token = strtok(input, " "); // seperate input by spaces using tokenization
+    char *token = strtok(input, " "); // separate input by spaces using tokenization
 
     while(token){  
         if(strcmp(token, "<") == 0){ // strcmp compares two strings to see if they are similar, returning 0 if true 
