@@ -1,0 +1,5 @@
+README
+output.txt
+techshell
+techshell.c
+typescript

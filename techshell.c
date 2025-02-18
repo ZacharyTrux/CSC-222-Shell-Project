@@ -37,7 +37,6 @@ struct ShellCommand ParseCommandLine(char *input){
     struct ShellCommand command;
     command.input_file = NULL;
     command.output_file = NULL;
-
     int index = 0;
     // tokenizing is a way of creating sub-strings in which each token or substring is created based on spaces which indicate the token has ended 
     char *token = strtok(input, " "); // separate input by spaces using tokenization
@@ -54,7 +53,8 @@ struct ShellCommand ParseCommandLine(char *input){
         else{
             command.args[index++] = token;
         }
-        token = strtok(NULL, " "); // iterates to the next token 
+        token = strtok(NULL, " "); // iterates to the next token
+        printf("%s", input); 
     }
 
     command.args[index] = NULL; // set the last index as NULL to allow for a later function (execvp) to work
@@ -70,11 +70,11 @@ void ExecuteCommand(struct ShellCommand command){
     else if(strcmp(command.args[0], "cd") == 0){
         int num = chdir(command.args[1]);
         if(num < 0){ // if cd is wrong num will be -1
-            perror("Error 13");
+           perror("Error 13");
         }
         return; 
     }
-    
+
     pid_t p = fork();
     if(p < 0){
         perror("Fork Failed");
@@ -93,7 +93,10 @@ void ExecuteCommand(struct ShellCommand command){
         }
         int num = execvp(command.args[0], command.args);
         if(num < 0){
-            perror("Error 2");
+            if(errno == EACCES) {
+                perror("Error 13");
+            }
+            else{perror("Error 2");}
             exit(1);
         }
     
