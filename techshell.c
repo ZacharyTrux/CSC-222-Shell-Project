@@ -43,8 +43,8 @@ struct ShellCommand ParseCommandLine(char *input){
     char *token = strtok(input, " "); // seperate input by spaces using tokenization
 
     while(token){  
-        if(strcmp(token, "<") == 0){ // strcmp checks for if a given string is found in the token
-            token = strtok(NULL, " "); 
+        if(strcmp(token, "<") == 0){ // strcmp compares two strings to see if they are similar, returning 0 if true 
+            token = strtok(NULL, " "); // move to the next token AKA the input file if "<" is detected
             command.input_file = token;
         }
         else if(strcmp(token, ">") == 0){
