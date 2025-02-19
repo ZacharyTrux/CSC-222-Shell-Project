@@ -93,10 +93,7 @@ void ExecuteCommand(struct ShellCommand command){
         }
         int num = execvp(command.args[0], command.args);
         if(num < 0){
-            if(errno == EACCES) {
-                perror("Error 13");
-            }
-            else{perror("Error 2");}
+            perror("Error 2");
             exit(1);
         }
     
