@@ -53,8 +53,7 @@ struct ShellCommand ParseCommandLine(char *input){
         else{
             command.args[index++] = token;
         }
-        token = strtok(NULL, " "); // iterates to the next token
-        printf("%s", input); 
+        token = strtok(NULL, " "); // iterates to the next token 
     }
 
     command.args[index] = NULL; // set the last index as NULL to allow for a later function (execvp) to work
