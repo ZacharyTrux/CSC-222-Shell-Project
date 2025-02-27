@@ -30,3 +30,8 @@ Execute Command:
   execvp()
 - If execvp() fails, an error message is printed, and the child process exits
 - The parent process waits for the child to finish before continuing execution
+
+Not Incorporated Functions:
+- &&
+- || 
+- |
