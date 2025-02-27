@@ -1,0 +1,46 @@
+Script started on 2025-02-26 20:50:31-06:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="76" LINES="43"]
+[?2004h]0;nubs@Nubs-laptop: /mnt/c/Users/grand/OneDrive/Desktop/222/techshell[;32m┌──([1;34mnubs㉿Nubs-laptop[;32m)-[[0;1m/mnt/c/Users/grand/OneDrive/Desktop/222/techshell[;32m]
+[;32m└─[1;34m$[0m exit./techshell
+[?2004l/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ pwd
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ ls -    cd ..
+/mnt/c/Users/grand/OneDrive/Desktop/222$ cd techsell   hell
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ ls -lh techshell.c
+-rwxrwxrwx 1 nubs nubs 3.6K Feb 26 20:38 techshell.c
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ chmod 400 techshell.c
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ ls -lh techshell.c
+-r-xr-xr-x 1 nubs nubs 3.6K Feb 26 20:38 techshell.c
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ ls ./  /too   root
+ls: cannot open directory '/root': Permission denied
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ ps
+    PID TTY          TIME CMD
+     58 pts/1    00:00:00 bash
+     61 pts/1    00:00:00 techshell
+     67 pts/1    00:00:00 ps
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ where  is ps
+ps: /usr/bin/ps /usr/share/man/man1/ps.1.gz
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ ls  /bin/ps u
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+nubs          10  0.1  0.0   7764  4684 pts/0    Ss   20:40   0:01 -bash
+nubs          57  0.0  0.0   5564  1140 pts/0    S+   20:50   0:00 script
+nubs          58  0.0  0.0   7372  3960 pts/1    Ss   20:50   0:00 bash -i
+nubs          61  0.0  0.0   2556  1676 pts/1    S+   20:50   0:00 ./techshe
+nubs          69  0.0  0.0   9788  4144 pts/1    R+   20:53   0:00 /bin/ps u
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ ps u >ps.out       ps.out
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ wc -l < ps.pu  put   out
+6
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ wc -l > < ps.out > ps  wc.out
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ cat wc.out
+6
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ ls
+ps.out	techshell  techshell.c	typescript  wc.out
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ rm p ps.out wc.out
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ ls
+techshell  techshell.c	typescript
+/mnt/c/Users/grand/OneDrive/Desktop/222/techshell$ exit
+
+[?2004h]0;nubs@Nubs-laptop: /mnt/c/Users/grand/OneDrive/Desktop/222/techshell[;32m┌──([1;34mnubs㉿Nubs-laptop[;32m)-[[0;1m/mnt/c/Users/grand/OneDrive/Desktop/222/techshell[;32m]
+[;32m└─[1;34m$[0m exit
+[?2004lexit
+
+Script done on 2025-02-26 20:54:48-06:00 [COMMAND_EXIT_CODE="0"]
